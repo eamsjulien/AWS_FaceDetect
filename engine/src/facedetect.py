@@ -6,6 +6,8 @@ Exposes a FaceDetect class which expects an image as argument.
 
 import cv2
 
+HAAR_CASC = "haarcascade_frontalface_alt.xml"
+
 
 class FaceDetect:
     """Takes image as argument. Provides support for face detections."""
@@ -38,3 +40,15 @@ class FaceDetect:
     def setimage(self, img):
         """Set the new image."""
         self.image = img
+
+    def detect(self, scale=1.1, neighbors=5):
+        """Detect if a face is found."""
+        if self.isvalid():
+            haar_face_casc = cv2.CascadeClassifier(HAAR_CASC)
+            self.convertgrey()
+            faces = haar_face_casc.detectMultiScale(self.image,
+                                                    scale,
+                                                    neighbors)
+            print('Faces found: ', len(faces))
+        else:
+            print('Image format invalid.')
