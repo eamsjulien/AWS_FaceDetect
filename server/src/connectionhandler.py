@@ -10,7 +10,7 @@ class ConnectionHandler:
         """Construct with three attributes."""
         self.ip = ip
         self.port = port
-        self.filename = port
+        self.filename = filename
 
     def getip(self):
         """Return the IP."""
