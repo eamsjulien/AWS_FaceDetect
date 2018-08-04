@@ -6,7 +6,7 @@ Exposes a FaceDetect class which expects an image as argument.
 
 import cv2
 
-HAAR_CASC = "/../lib/haarcascade_frontalface_alt.xml"
+HAAR_CASC = "lib/haarcascade_frontalface_alt.xml"
 
 
 class FaceDetect:
