@@ -6,15 +6,15 @@ Exposes a FaceDetect class which expects an image as argument.
 
 import cv2
 
-HAAR_CASC = "haarcascade_frontalface_alt.xml"
+HAAR_CASC = "engine/haarcascade_frontalface_alt.xml"
 
 
 class FaceDetect:
     """Takes image as argument. Provides support for face detections."""
 
     def __init__(self, image=None):
-        """Construct with only image as attribute."""
-        self.image = image
+        """Construct with only image as attribute and convert the img to grayscale."""
+        self.image = cv2.imread(image, 0)
 
     def isvalid(self):
         """Check if attribute has been set."""
@@ -45,7 +45,6 @@ class FaceDetect:
         """Detect if a face is found."""
         if self.isvalid():
             haar_face_casc = cv2.CascadeClassifier(HAAR_CASC)
-            self.convertgrey()
             faces = haar_face_casc.detectMultiScale(self.image,
                                                     scale,
                                                     neighbors)
