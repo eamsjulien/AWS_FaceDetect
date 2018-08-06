@@ -44,19 +44,19 @@ class ConnectionHandler:
 
     def start_server(self, server_socket):
         """Listen and treat incoming connections."""
-        while True:
-            server_socket.listen(5)
-            print("Waiting for incoming connections...")
 
-            client, addr = server_socket.accept()
-            print("Incoming connection from " + str(addr))
+        server_socket.listen(5)
+        print("Waiting for incoming connections...")
 
-            with open(self.filename, 'wb') as img:
-                while True:
-                    data = client.recv(1024)
-                    if not data:
-                        break
-                    img.write(data)
+        client, addr = server_socket.accept()
+        print("Incoming connection from " + str(addr))
 
-            print("Transfer Completed.")
-            print("Closing " + str(addr))
+        with open(self.filename, 'wb') as img:
+            while True:
+                data = client.recv(1024)
+                if not data:
+                    break
+                img.write(data)
+
+        print("Transfer Completed.")
+        print("Closing " + str(addr))
