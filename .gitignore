@@ -1,2 +1,4 @@
 .vscode/
 .envFile
+*.jpg
+__pycache__/
