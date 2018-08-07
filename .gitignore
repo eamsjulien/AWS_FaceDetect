@@ -2,3 +2,4 @@
 .envFile
 *.jpg
 __pycache__/
+videocap/
