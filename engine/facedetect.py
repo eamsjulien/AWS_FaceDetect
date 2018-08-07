@@ -33,6 +33,13 @@ class FaceDetect:
         else:
             print("Image undefined.")
 
+    def convertrgb(self):
+        """Convert image from grayscale to RGB."""
+        if self.isvalid():
+            self.image = cv2.cvtColor(self.image, cv2.COLOR_GRAY2RGB)
+        else:
+            print("Image undefined.")
+
     def getimage(self):
         """Return the image."""
         return self.image
