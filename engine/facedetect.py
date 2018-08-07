@@ -56,5 +56,22 @@ class FaceDetect:
                                                     scale,
                                                     neighbors)
             print('Faces found: ', len(faces))
+            return faces
+        else:
+            print('Image format invalid.')
+
+    def drawrectangle(self, faces):
+        """Draw rectangles on the picture based on faces."""
+        if self.isvalid():
+            for (x, y, w, h) in faces:
+                cv2.rectangle(self.image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            return self.image
+        else:
+            print('Image format invalid.')
+
+    def saveimage(self, loc):
+        """Save image to a location specified by loc."""
+        if self.isvalid():
+            cv2.imwrite(loc, self.image)
         else:
             print('Image format invalid.')
