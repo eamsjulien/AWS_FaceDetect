@@ -38,7 +38,7 @@ class ConnectionHandler:
 
     def initialize(self):
         """Initialize the connection. Return a socket."""
-        server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.bind((self.ip, self.port))
         return server_socket
 
