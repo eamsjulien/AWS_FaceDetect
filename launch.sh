@@ -41,7 +41,7 @@ set -- "${POSITIONAL[@]}"
 source setup_env.sh
 
 if [[ "${MODE}" = "server" ]]; then
-  rm ../AWS_Flask/aws/static/client_img/*.jpg ; python3 main.py ; export FLASK_APP=aaws ;
+  rm ../AWS_Flask/aws/static/client_img/*.jpg ; python3 main.py ; export FLASK_APP=aws ;
   cd ../AWS_Flask/ ; flask run --host=0.0.0.0 --port=8080
 else
   CLIENT=1
