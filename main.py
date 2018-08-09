@@ -5,7 +5,7 @@ from engine.facedetect import FaceDetect
 
 
 print(" -------------------------")
-print("| AWS FACEDETECT _ SERVER |")
+print("| AWS FACEDETECT - SERVER |")
 print(" -------------------------")
 
 print("\n Initializing ENV variables...", end='')

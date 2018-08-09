@@ -5,9 +5,10 @@ from client.camera import Camera
 
 FRAME_NBR = 20
 SERVER_ADDR = '13.115.118.145'
+SLEEP = 0.1
 
 print(" -------------------------")
-print("| AWS FACEDETECT _ SERVER |")
+print("| AWS FACEDETECT - SERVER |")
 print(" -------------------------")
 
 print("\n Initializing ENV variables...", end='')
