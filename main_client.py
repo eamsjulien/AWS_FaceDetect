@@ -5,6 +5,8 @@ import argparse
 import client.client as cl
 from client.camera import Camera
 
+# PYTHON PARSER VIA ARGPARSE #
+
 ap = argparse.ArgumentParser(description="AWS FaceDetect Client Main.")
 ap.add_argument("-a", "--address", required=True, help="Address to connect to.",
                 type=str)
@@ -17,6 +19,8 @@ args = vars(ap.parse_args())
 FRAME_NBR = args['frames']
 SERVER_ADDR = args['address']
 SLEEP = args['sleep']
+
+# FACEDETECT CLIENT #
 
 print(" -------------------------")
 print("| AWS FACEDETECT - SERVER |")

@@ -1,8 +1,11 @@
 """Main handler for the AWS server component."""
 
+import os
+
 import server.connectionhandler as ch
 from engine.facedetect import FaceDetect
 
+# FACEDETECT SERVER #
 
 print(" -------------------------")
 print("| AWS FACEDETECT - SERVER |")
@@ -57,3 +60,21 @@ print("\nDetection completed!")
 print("\n --------------------------")
 print("| AWS FACEDETECT - GOODBYE |")
 print(" --------------------------")
+
+# FLASK CONFIGURATION UPDATE #
+
+FLASK_CONFIG_CONTENT = []
+
+with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py', 'r') as f:
+    config_content = f.readlines()
+    for line in config_content:
+        if "SECRET" in line.strip():
+            FLASK_CONFIG_CONTENT.append(line)
+
+FLASK_CONFIG_CONTENT.append("FRAMES_NBR = " + str(FRAME_NBR) + "\n")
+
+with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py', 'r') as f:
+    for items in FLASK_CONFIG_CONTENT:
+        f.write(items)
+
+print("\n")

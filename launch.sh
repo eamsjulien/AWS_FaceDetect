@@ -41,11 +41,12 @@ set -- "${POSITIONAL[@]}"
 source setup_env.sh
 
 if [[ "${MODE}" = "server" ]]; then
-  python3 main.py
+  rm ../AWS_Flask/aws/static/client_img/*.jpg ; python3 main.py ; export FLASK_APP=aaws ;
+  cd ../AWS_Flask/ ; flask run --host=0.0.0.0 --port=8080
 else
   CLIENT=1
 fi
 
 if [[ "${CLIENT}" = 1 ]]; then
-  python main_client.py -f $FRAMES -a $ADDRESS -s $SLEEP
+  python3 main_client.py -f $FRAMES -a $ADDRESS -s $SLEEP
 fi
