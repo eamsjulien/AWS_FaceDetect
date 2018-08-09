@@ -1,11 +1,22 @@
 """Main handler for the client component."""
 
+import argparse
+
 import client.client as cl
 from client.camera import Camera
 
-FRAME_NBR = 20
-SERVER_ADDR = '13.115.118.145'
-SLEEP = 0.1
+ap = argparse.ArgumentParser(description="AWS FaceDetect Client Main.")
+ap.add_argument("-a", "--address", required=True, help="Address to connect to.",
+                type=str)
+ap.add_argument("-f", "--frames", help="Frames to send.", nargs='?', default=10,
+                type=int)
+ap.add_argument("-s", "--sleep", help="Sleep in seconds.", nargs='?', default=0.1,
+                type=float)
+args = vars(ap.parse_args())
+
+FRAME_NBR = args['frames']
+SERVER_ADDR = args['address']
+SLEEP = args['sleep']
 
 print(" -------------------------")
 print("| AWS FACEDETECT - SERVER |")
