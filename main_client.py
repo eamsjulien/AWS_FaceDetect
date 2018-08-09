@@ -34,7 +34,7 @@ for frame in range(FRAME_NBR):
     print("Sending frame %s..." % str(frame), end='')
     cl.send_frame(client_socket, frame_loc, sleep=0.1)
     print("Done.")
-    print("Waiting for frame" + str(frame) + " reception...", end='')
+    print("Waiting for frame " + str(frame) + " reception...", end='')
     cl.waiting_for_ack(client_socket, frame)
     print("ACK")
 

@@ -55,5 +55,5 @@ for item in range(FRAME_NBR):
 
 print("\nDetection completed!")
 print("\n --------------------------")
-print("| AWS FACEDETECT _ GOODBYE |")
+print("| AWS FACEDETECT - GOODBYE |")
 print(" --------------------------")

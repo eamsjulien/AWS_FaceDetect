@@ -13,6 +13,8 @@ def init_facedetect_environ_folder(capture_loc=None):
 
 def init_client_socket(address, port=None):
     """Initialize client socket. Address is mandatory argument, default port is 5000."""
+    if port is None:
+        port = 5000
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((address, port))
     return client_socket
