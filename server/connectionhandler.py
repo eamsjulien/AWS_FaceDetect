@@ -5,7 +5,7 @@ import os
 import subprocess
 
 
-def init_flask_environ_folder(img_loc, json_loc):
+def init_flask_environ_folder(img_loc=None, json_loc=None):
     """Return necessary img and json locations based on environ."""
     if img_loc is None:
         img_loc = os.path.join(os.environ['AWS_FLASK_FOLDER'],
@@ -17,7 +17,7 @@ def init_flask_environ_folder(img_loc, json_loc):
                                'json/current.json')
     return (img_loc, json_loc)
 
-def init_server_socket(address, port):
+def init_server_socket(address=None, port=None):
     """Initialize server socket. Takes eth0 IP and port 5000 by default."""
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     if port is None:
