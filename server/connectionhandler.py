@@ -2,7 +2,6 @@
 
 import socket
 import os
-import subprocess
 
 
 def init_flask_environ_folder(img_loc=None, json_loc=None):
@@ -23,9 +22,8 @@ def init_server_socket(address=None, port=None):
     if port is None:
         port = 5000
     if address is None:
-        ips = subprocess.check_output(['hostname', '--all-ip-addresses'])
-        address = ips.decode('utf-8')[:-3]
-    server_socket.bind((port, address))
+        address = socket.gethostbyname(socket.gethostname())
+    server_socket.bind((address, port))
     return server_socket
 
 def receive_bytes_to_string(client_sock):

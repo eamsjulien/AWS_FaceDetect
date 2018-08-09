@@ -16,6 +16,7 @@ print("\n Initializing server socket...", end='')
 server_socket = ch.init_server_socket()
 print("Done!")
 
+server_socket.listen(5)
 print("\nWaiting for incoming connection...")
 client, addr = server_socket.accept()
 print("Incoming connection from " + str(addr))
