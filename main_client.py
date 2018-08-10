@@ -32,7 +32,7 @@ def main():
     # FACEDETECT CLIENT #
 
     print(" -------------------------")
-    print("| AWS FACEDETECT - SERVER |")
+    print("| AWS FACEDETECT - CLIENT |")
     print(" -------------------------")
 
     print("\n Initializing ENV variables...", end='')
