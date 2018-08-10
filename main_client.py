@@ -1,7 +1,7 @@
 """
 Main handler for the client component.
 
-Usage: python main_client.py --address ADDRESS [--frames FRAMES]
+Usage: python3 main_client.py --address ADDRESS [--frames FRAMES]
                              [--sleep SLEEP]
 """
 
