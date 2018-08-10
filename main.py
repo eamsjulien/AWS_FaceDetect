@@ -1,80 +1,94 @@
-"""Main handler for the AWS server component."""
+"""
+Main handler for the AWS server component.
+
+Usage: python3 main.py
+"""
+
 
 import os
 
 import server.connectionhandler as ch
 from engine.facedetect import FaceDetect
 
-# FACEDETECT SERVER #
+def main():
+    """Main function for server loop."""
 
-print(" -------------------------")
-print("| AWS FACEDETECT - SERVER |")
-print(" -------------------------")
+    # FACEDETECT SERVER #
 
-print("\n Initializing ENV variables...", end='')
-img_loc, json_loc = ch.init_flask_environ_folder()
-print("Done!")
+    print(" -------------------------")
+    print("| AWS FACEDETECT - SERVER |")
+    print(" -------------------------")
 
-print("\n Initializing server socket...", end='')
-server_socket = ch.init_server_socket()
-print("Done!")
+    print("\n Initializing ENV variables...", end='')
+    img_loc, _json_loc = ch.init_flask_environ_folder()
+    print("Done!")
 
-server_socket.listen(5)
-print("\nWaiting for incoming connection...")
-client, addr = server_socket.accept()
-print("Incoming connection from " + str(addr))
+    print("\n Initializing server socket...", end='')
+    server_socket = ch.init_server_socket()
+    print("Done!")
 
-FRAME_NBR = int(ch.receive_bytes_to_string(client))
-print("Expecting " + str(FRAME_NBR) + " frames from remote host.")
+    server_socket.listen(5)
+    print("\nWaiting for incoming connection...")
+    client, addr = server_socket.accept()
+    print("Incoming connection from " + str(addr))
 
-print("\n **** RECEIVING FRAMES ****")
+    frame_nbr = int(ch.receive_bytes_to_string(client))
+    print("Expecting " + str(frame_nbr) + " frames from remote host.")
 
-for curr_frame in range(FRAME_NBR):
+    print("\n **** RECEIVING FRAMES ****")
 
-    frame_size = int(ch.receive_bytes_to_string(client))
-    ch.receive_frame(client, curr_frame, frame_size, img_loc)
-    print("Frame " + str(curr_frame) + " received.")
+    for curr_frame in range(frame_nbr):
 
-    print("Sending ack...", end='')
-    ch.send_frame_ack(client, curr_frame)
-    print("Sent.")
+        frame_size = int(ch.receive_bytes_to_string(client))
+        ch.receive_frame(client, curr_frame, frame_size, img_loc)
+        print("Frame " + str(curr_frame) + " received.")
 
-print("\nFrames received!")
+        print("Sending ack...", end='')
+        ch.send_frame_ack(client, curr_frame)
+        print("Sent.")
 
-print("Closing sockets...", end='')
-client.close()
-server_socket.close()
-print("Done!")
+    print("\nFrames received!")
 
-print("\n **** STARTING DETECTION ****")
+    print("Closing sockets...", end='')
+    client.close()
+    server_socket.close()
+    print("Done!")
 
-for item in range(FRAME_NBR):
-    print("Running detection on frame " + str(item))
-    frame_name = img_loc + "frame" + str(item) + ".jpg"
-    detection = FaceDetect(frame_name)
-    faces = detection.detect()
-    detection.image = detection.drawrectangle(faces)
-    detection.saveimage(frame_name)
+    print("\n **** STARTING DETECTION ****")
 
-print("\nDetection completed!")
-print("\n --------------------------")
-print("| AWS FACEDETECT - GOODBYE |")
-print(" --------------------------")
+    for item in range(frame_nbr):
+        print("Running detection on frame " + str(item))
+        frame_name = img_loc + "frame" + str(item) + ".jpg"
+        detection = FaceDetect(frame_name)
+        faces = detection.detect()
+        detection.image = detection.drawrectangle(faces)
+        detection.saveimage(frame_name)
 
-# FLASK CONFIGURATION UPDATE #
+    print("\nDetection completed!")
+    print("\n --------------------------")
+    print("| AWS FACEDETECT - GOODBYE |")
+    print(" --------------------------")
 
-FLASK_CONFIG_CONTENT = []
+    # FLASK CONFIGURATION UPDATE #
 
-with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py', 'r') as f:
-    config_content = f.readlines()
-    for line in config_content:
-        if "SECRET" in line.strip():
-            FLASK_CONFIG_CONTENT.append(line)
+    flask_config_content = []
 
-FLASK_CONFIG_CONTENT.append("FRAMES_NBR = " + str(FRAME_NBR) + "\n")
+    with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py',
+              'r') as filedesc:
+        config_content = filedesc.readlines()
+        for line in config_content:
+            if "SECRET" in line.strip():
+                flask_config_content.append(line)
 
-with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py', 'w') as f:
-    for items in FLASK_CONFIG_CONTENT:
-        f.write(items)
+    flask_config_content.append("FRAMES_NBR = " + str(frame_nbr) + "\n")
 
-print("\n")
+    with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py',
+              'w') as filedesc:
+        for items in flask_config_content:
+            filedesc.write(items)
+
+    print("\n")
+
+
+if __name__ == '__main__':
+    main()
