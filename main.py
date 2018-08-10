@@ -73,7 +73,7 @@ with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py', 'r') as f:
 
 FLASK_CONFIG_CONTENT.append("FRAMES_NBR = " + str(FRAME_NBR) + "\n")
 
-with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py', 'r') as f:
+with open(os.environ['AWS_FLASK_FOLDER'] + '/instance/config.py', 'w') as f:
     for items in FLASK_CONFIG_CONTENT:
         f.write(items)
 
